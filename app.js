@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./api/routes/auth.router.js";
 import productRouter from "./api/routes/product.router.js";
+import cartRouter from "./api/routes/cart.router.js";
 const app = express();
 
 // config:
@@ -14,10 +15,12 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["get", "post", "put", "delete", "patch"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -25,5 +28,6 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
 
 export default app;

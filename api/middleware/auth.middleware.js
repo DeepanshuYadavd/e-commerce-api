@@ -6,7 +6,7 @@ export const protect = async (req, res, next) => {
     const token = req.cookies.token;
     const decode = await jwt.verify(token, process.env.SECRET_KEY);
     req.user = await Auth.findById(decode.id).select("-password");
-    console.log(req.user);
+
     next();
   } catch (err) {
     return res.status(401).json({
