@@ -106,28 +106,20 @@ export const updateCartItem = async (req, res) => {
   try {
     const userId = req.user._id;
     const { productId, quantity } = req.body;
-
-    console.log(req.body);
-
     if (!productId || quantity == null) {
       return res.status(400).json({
         message: "Product Id and quantity required",
       });
     }
-
     const cart = await Cart.findOne({ user: userId });
-
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-
     // find item
     const item = cart.cartItem.find((i) => i._id.toString() === productId);
-
     if (!item) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
-
     // if quantity 0 => delete item
     if (quantity === 0) {
       cart.cartItem = cart.cartItem.filter(
@@ -136,11 +128,9 @@ export const updateCartItem = async (req, res) => {
     } else {
       item.quantity = quantity;
     }
-
     // recalc price
     cart.cartPrice = await reCalPrice(cart.cartItem);
     await cart.save();
-
     return res.status(200).json({
       message: "Cart updated",
       data: cart,
@@ -155,27 +145,20 @@ export const deleteCartItem = async (req, res) => {
   try {
     const userId = req.user._id;
     const { productId } = req.params;
-
     const cart = await Cart.findOne({ user: userId });
-
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-
     const exists = cart.cartItem.some((i) => i._id.toString() === productId);
-
     if (!exists) {
       return res.status(404).json({
         message: "Item not found in cart",
       });
     }
-
     // remove item
     cart.cartItem = cart.cartItem.filter((i) => i._id.toString() !== productId);
-
     cart.cartPrice = await reCalPrice(cart.cartItem);
     await cart.save();
-
     return res.status(200).json({
       message: "Item deleted",
       data: cart,

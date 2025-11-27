@@ -34,7 +34,11 @@ export const createProduct = async (req, res, next) => {
 
 export const getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    const { category } = req.query;
+
+    const filter = category && category !== "all" ? { category } : {};
+
+    const products = await Product.find(filter);
     if (!products && products.length === 0) {
       return res.status(400).json({
         message: "No products Available",
