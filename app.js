@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./api/routes/auth.router.js";
 import productRouter from "./api/routes/product.router.js";
 import cartRouter from "./api/routes/cart.router.js";
+import addressRouter from "./api/routes/address.router.js";
 const app = express();
 
 // config:
@@ -29,5 +30,6 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/address", addressRouter);
 
 export default app;

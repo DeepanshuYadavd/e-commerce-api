@@ -78,6 +78,7 @@ export const loginController = async (req, res, next) => {
         data: {
           id: isEmailExist._id,
           name: isEmailExist.userName,
+          address: isEmailExist.addresses,
         },
       });
     } else {
@@ -110,6 +111,7 @@ export const getMyProfile = async (req, res, next) => {
 
     return res.status(200).json({
       data: user.userName,
+      address: user.addresses,
     });
   } catch (err) {
     return res.status(500).json({
@@ -134,4 +136,3 @@ export const logoutController = async (req, res, next) => {
     });
   }
 };
-
