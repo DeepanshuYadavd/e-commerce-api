@@ -6,6 +6,7 @@ import authRouter from "./api/routes/auth.router.js";
 import productRouter from "./api/routes/product.router.js";
 import cartRouter from "./api/routes/cart.router.js";
 import addressRouter from "./api/routes/address.router.js";
+import orderRouter from "./api/routes/order.router.js"
 const app = express();
 
 // config:
@@ -31,5 +32,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
+app.use("/api/order",orderRouter)
 
 export default app;

@@ -105,3 +105,21 @@ export const setAsDefault = async (req, res, next) => {
     });
   }
 };
+
+// get selected address:
+export const getSelectedAddress = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const user = await Auth.findById(userId);
+
+    const selectedAddress = user.addresses.find((a) => a.isDefault === true);
+
+    return res.status(200).json({
+      address: selectedAddress,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};

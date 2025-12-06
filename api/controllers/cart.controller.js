@@ -167,3 +167,33 @@ export const deleteCartItem = async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+//  empty cart:
+
+// EMPTY FULL CART
+export const emptyCart = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    // find user's cart
+    const cart = await Cart.findOne({ user: userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // empty items
+    cart.cartItem = [];
+    cart.cartPrice = 0; // reset price
+
+    await cart.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Cart cleared successfully",
+      cart,
+    });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
