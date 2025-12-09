@@ -28,7 +28,7 @@ export const addToCart = async (req, res, next) => {
             quantity: quantity,
           },
         ],
-        cartPrice: product.price * quantity,
+        cartPrice: product.price,
       });
       return res.status(201).json({
         data: userCart,
@@ -69,6 +69,7 @@ const reCalPrice = async (items) => {
     const product = await Product.findById(item.product);
     price += product.price * item.quantity;
   }
+  console.log(typeof price, price);
   return price;
 };
 
