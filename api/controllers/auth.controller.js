@@ -33,7 +33,7 @@ export const signupController = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: false,
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -69,7 +69,7 @@ export const loginController = async (req, res, next) => {
 
       res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: false,
         maxAge: 24 * 60 * 60 * 1000,
       });
@@ -124,7 +124,7 @@ export const logoutController = async (req, res, next) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: false,
     });
     return res.status(200).json({
