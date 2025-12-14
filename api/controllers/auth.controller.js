@@ -70,7 +70,7 @@ export const loginController = async (req, res, next) => {
       res.cookie("token", token, {
         httpOnly: true,
         sameSite: "none",
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60 * 1000,
       });
       return res.status(200).json({
