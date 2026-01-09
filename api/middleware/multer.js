@@ -13,4 +13,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
+// const upload = multer({ dest: "uploads/" });
+// we can also give our local disk storage in multer....
+
 export default upload;
